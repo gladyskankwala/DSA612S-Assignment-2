@@ -1,8 +1,5 @@
 [package]
-org = "gladis"
+org = "dsa612s"
 name = "payment_service"
 version = "0.1.0"
-distribution = "2201.13.4"
-
-[build-options]
-observabilityIncluded = true
+distribution = "2201.13.5"
