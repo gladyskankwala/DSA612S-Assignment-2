@@ -8,6 +8,9 @@ service /orders on new http:Listener(9091) {
                 body: "Order already exists"
             };
         }
+
+        check  publishOrderCreated(orderr);
+
         return <http:Created>{
             body: orderr
         };
@@ -51,7 +54,7 @@ service /orders on new http:Listener(9091) {
     }
 
     resource function patch [string orderId]/status(@http:Payload OrderStatus nextStatus)
-    returns Order|http:BadRequest|http:NotFound {
+    returns Order|http:BadRequest|http:NotFound|error {
         Order? existingOrderr = getOrder(orderId);
         if existingOrderr is () {
             return <http:NotFound>{
@@ -67,6 +70,8 @@ service /orders on new http:Listener(9091) {
         Order updatedOrder = existingOrderr.clone(); 
         updatedOrder.status =nextStatus;
         _ = updateOrder(updatedOrder);
+
+        check publishOrderStatusUpdated(updatedOrder);
 
         return updatedOrder;
     }
