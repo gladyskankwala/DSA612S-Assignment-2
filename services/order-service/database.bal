@@ -1,40 +1,85 @@
-final map<Order> orders = {};
+import ballerinax/mongodb;
 
-public function addOrder(Order orderr) returns boolean {
-    if orders.hasKey(orderr.customerId) {
-        return false;
+public function addOrder(Order orderr) returns boolean|error {
+    error? result = orderCollection ->insertOne(orderr);
+    if result is error {
+        return result;
     }
 
-    orders[orderr.orderId] = orderr;
     return true;
 }
 
+public function getOrder(string orderId) returns Order|error? {
+    map<json> filter = {
+        orderId: orderId
+    };
 
-public function getOrder(string orderId) returns Order? {
-    return orders[orderId];
-}
+    Order|error? result = orderCollection->findOne(
+        filter,
+        {},
+        (),
+        Order
+    );
 
-public function getAllOrders() returns Order[] {
-    return orders.toArray();
-}
+    return result;
+} 
 
 
-public function updateOrder(Order orderr) returns boolean {
-    if !orders.hasKey(orderr.orderId) {
-        return false;
+public function getAllOrders() returns Order[]|error {
+    map<json> filter = {};
+
+    stream<Order, error?>|error result = orderCollection->find(
+        filter,
+        {},
+        (),
+        Order
+    );
+
+    if result is error {
+        return result;
     }
 
-    orders[orderr.orderId] = orderr;
-    return true;
+    Order[] orders = check from Order orderr in result
+        select orderr;
+
+    check result.close();
+    return orders;
+
 }
 
 
+public function updateOrder(Order orderr) returns boolean|error {
+    map<json> filter = {
+        orderId: orderr.orderId
+    };
 
-public function deleteOrder(string orderId) returns boolean {
-    if !orders.hasKey(orderId) {
-        return false;
+    mongodb:Update update = {
+        set: orderr
+    };
+
+    mongodb:UpdateResult|error result = orderCollection->updateOne(
+        filter,
+        update,
+        {}
+    );
+
+    if result is error {
+        return result;
     }
 
-    _=orders.remove(orderId);
-    return true;
+    return result.matchedCount > 0;
+}
+
+public function deleteOrder(string orderId) returns boolean|error {
+    map<json> filter = {
+        orderId: orderId
+    };
+
+    mongodb:DeleteResult|error result = orderCollection->deleteOne(filter);
+
+    if result is error {
+        return result;
+    }
+
+    return result.deletedCount > 0;
 }

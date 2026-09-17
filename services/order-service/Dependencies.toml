@@ -22,7 +22,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "avro"
-version = "1.2.3"
+version = "1.2.4"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -233,6 +233,9 @@ dependencies = [
 	{org = "ballerina", name = "lang.value"},
 	{org = "ballerina", name = "observe"}
 ]
+modules = [
+	{org = "ballerina", packageName = "log", moduleName = "log"}
+]
 
 [[package]]
 org = "ballerina"
@@ -375,15 +378,31 @@ modules = [
 ]
 
 [[package]]
+org = "ballerinax"
+name = "mongodb"
+version = "5.2.4"
+dependencies = [
+	{org = "ballerina", name = "crypto"},
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "time"}
+]
+modules = [
+	{org = "ballerinax", packageName = "mongodb", moduleName = "mongodb"}
+]
+
+[[package]]
 org = "gladis"
 name = "order_service"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "log"},
 	{org = "ballerina", name = "test"},
 	{org = "ballerinai", name = "observe"},
-	{org = "ballerinax", name = "kafka"}
+	{org = "ballerinax", name = "kafka"},
+	{org = "ballerinax", name = "mongodb"}
 ]
 modules = [
 	{org = "gladis", packageName = "order_service", moduleName = "order_service"},

@@ -1,6 +1,8 @@
 import ballerinax/kafka;
 
-final kafka:Producer producer = check new ("localhost:9092");
+configurable string kafkaUrl = ?;
+
+final kafka:Producer producer = check new (kafkaUrl);
 
 public function publishOrderCreated(Order orderr) returns error? {
     check producer->send({
