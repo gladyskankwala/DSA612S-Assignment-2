@@ -1,7 +1,7 @@
 type Order record {
     string orderId;
     string customerId;
-    decimal amount;
+    decimal totalAmount;
 };
 
 type Payment record {

@@ -10,7 +10,7 @@ function processOrder(Order ord) returns Payment {
     string paymentId = "PAY-" + counter.toString();
 
     string status = "COMPLETED";
-    if ord.amount <= 0d || ord.amount > 5000d {
+    if ord.totalAmount <= 0d || ord.totalAmount > 5000d {
         status = "FAILED";
     }
 
@@ -18,7 +18,7 @@ function processOrder(Order ord) returns Payment {
         paymentId: paymentId,
         orderId: ord.orderId,
         customerId: ord.customerId,
-        amount: ord.amount,
+        amount: ord.totalAmount,
         status: status
     };
 
