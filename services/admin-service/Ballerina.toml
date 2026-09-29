@@ -4,5 +4,10 @@ name = "admin_service"
 version = "0.1.0"
 distribution = "2201.13.4"
 
+[[dependency]]
+org = "ballerinax"
+name = "kafka"
+version = "4.6.6"
+
 [build-options]
 observabilityIncluded = true
