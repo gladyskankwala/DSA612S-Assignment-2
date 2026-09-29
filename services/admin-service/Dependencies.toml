@@ -5,7 +5,11 @@
 
 [ballerina]
 dependencies-toml-version = "2"
+<<<<<<< HEAD
 distribution-version = "2201.13.6"
+=======
+distribution-version = "2201.13.4"
+>>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
 
 [[package]]
 org = "ballerina"
@@ -116,9 +120,12 @@ dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
 ]
+<<<<<<< HEAD
 modules = [
 	{org = "ballerina", packageName = "io", moduleName = "io"}
 ]
+=======
+>>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
 
 [[package]]
 org = "ballerina"
@@ -355,6 +362,7 @@ modules = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 org = "ballerinax"
 name = "mongodb"
 version = "5.2.4"
@@ -369,16 +377,24 @@ modules = [
 ]
 
 [[package]]
+=======
+>>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
 org = "gladis"
 name = "admin_service"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+<<<<<<< HEAD
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "log"},
 	{org = "ballerinai", name = "observe"},
 	{org = "ballerinax", name = "kafka"},
 	{org = "ballerinax", name = "mongodb"}
+=======
+	{org = "ballerina", name = "log"},
+	{org = "ballerinai", name = "observe"},
+	{org = "ballerinax", name = "kafka"}
+>>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
 ]
 modules = [
 	{org = "gladis", packageName = "admin_service", moduleName = "admin_service"}

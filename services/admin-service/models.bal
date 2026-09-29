@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public type AdminStatistics record {|
 
     int totalOrders = 0;
@@ -29,3 +30,27 @@ public type DeliveryReport record {|
     int completedDeliveries;
 
 |};
+=======
+public type AdminStats record {|
+    int totalOrders;
+    int completedPayments;
+    int failedPayment;
+|};
+
+public type OrderEvent record {
+    string orderId;
+    string customerId;
+    string restaurentId;
+    decimal totalAmount;
+    string status;
+    
+};
+
+public type PaymentEvent record {
+    string paymentId;
+    string orderId;
+    string customerId;
+    decimal amount;
+    string status;
+};
+>>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
