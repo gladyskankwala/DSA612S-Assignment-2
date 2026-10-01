@@ -75,6 +75,37 @@ services:
       mongodb:
         condition: service_started
 
+  # Romo's Section
+  # creates all topics with 3 partitions (instead of auto-creating them with 1)
+  kafka-init:
+    image: apache/kafka:4.0.0
+    container_name: dsa612s-kafka-init
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        for t in orders.created orders.confirmed orders.preparing orders.ready orders.cancelled
+        orders.status.updated payments.completed payments.failed
+        delivery.assigned delivery.status.updated delivery.completed;
+        do /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create --if-not-exists
+        --topic $$t --partitions 3 --replication-factor 1; done
+
+  delivery-service:
+    build: ./services/delivery-service
+    container_name: dsa612s-delivery-service
+    ports:
+      - "8085:8085"
+    environment:
+      BAL_CONFIG_VAR_KAFKAURL: kafka:29092
+      BAL_CONFIG_VAR_MONGOURL: mongodb://admin:admin123@mongodb:27017/?authSource=admin
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+      mongodb:
+        condition: service_started
+
 ###### ENDS
 
 
