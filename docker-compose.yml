@@ -53,35 +53,22 @@ services:
       kafka:
         condition: service_healthy
 
-  payment-service:
-    build: ./services/payment-service
-    container_name: dsa612s-payment-service
-    ports:
-      - "8084:8084"
-    environment:
-      BAL_CONFIG_VAR_KAFKAURL: kafka:29092
-      BAL_CONFIG_VAR_MONGOURL: mongodb://admin:admin123@mongodb:27017/?authSource=admin
-    depends_on:
-      kafka-init:
-        condition: service_completed_successfully
-      mongodb:
-        condition: service_started
-
   # Jeovane's Section
   notification-service:
     build: ./services/notification-service
     container_name: dsa612s-notification-service
-    ports:
-      - "8087:8087"
+    ports: 
+    -  "8087:8087"
     depends_on:
       kafka:
         condition: service_healthy
+
 
   admin-service:
     build: ./services/admin-service
     container_name: dsa612s-admin-service
     ports:
-      - "8088:8088"
+    - "8088:8088"
     depends_on:
       kafka:
         condition: service_healthy
@@ -120,6 +107,7 @@ services:
         condition: service_started
 
 ###### ENDS
+
 
 volumes:
   mongodb_data:
