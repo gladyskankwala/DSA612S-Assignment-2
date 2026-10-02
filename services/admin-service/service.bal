@@ -1,7 +1,5 @@
 import ballerina/http;
 
-<<<<<<< HEAD
-
 service /admin on new http:Listener(8088) {
     
         // Complete Admin Statistics
@@ -20,13 +18,12 @@ service /admin on new http:Listener(8088) {
 
         return getDeliveryReport();
     }
+}
 
-=======
 service /admin on new http:Listener(8085) {
 
     resource function get stats() returns AdminStats {
         return  getStats();
         
     }
->>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
 }

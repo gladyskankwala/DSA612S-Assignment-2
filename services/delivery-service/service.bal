@@ -7,7 +7,7 @@ final map<DeliveryStatus> nextStatus = {
     "IN_TRANSIT": DELIVERED
 };
 
-service /delivery on new http:Listener(8085) {
+service /delivery on new http:Listener(8090) {
 
     resource function get health() returns json {
         return {"service": "delivery-service", "status": "running"};

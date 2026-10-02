@@ -1,7 +1,5 @@
 import ballerina/log;
 import ballerinax/kafka;
-
-<<<<<<< HEAD
 configurable string kafkaUrl = ?;
 
 kafka:ConsumerConfiguration consumerConfig = {
@@ -68,7 +66,7 @@ listener kafka:Listener adminKafkaListener = new (kafkaUrl,consumerConfig);
             }
         }
     }
-=======
+
 
 configurable string kafkaBootStrapServers = "localhost:9092";
 
@@ -124,4 +122,4 @@ service on failedPaymentsListener {
 
     
 }
->>>>>>> 7b27d0f4ce21753f6be1b29a9801588f24baa9d7
+
