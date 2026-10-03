@@ -4,5 +4,11 @@ name = "customer_service"
 version = "0.1.0"
 distribution = "2201.13.4"
 
+[[dependency]]
+
+org = "ballerinax"
+name = "0.1.0"
+version = "5.2.4"
+
 [build-options]
 observabilityIncluded = true
