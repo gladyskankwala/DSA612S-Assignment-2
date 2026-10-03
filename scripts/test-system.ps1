@@ -120,6 +120,13 @@ Test-Service `
     -Name "Notification Service" `
     -Url "http://localhost:8087/notification/health"
 
+# Restaurent Service
+# --------------------------------------------------
+
+Test-Service `
+    -Name "Restaurent Service" `
+    -Url "http://localhost:8083/restaurant"
+
 Write-Host ""
 Write-Host "======================================"
 Write-Host "System test completed"

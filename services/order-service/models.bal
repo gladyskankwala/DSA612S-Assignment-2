@@ -1,5 +1,6 @@
 public type OrderItem record {|
     string menuItemId;
+    string itemID;
     string name;
     int quantity;
     decimal price;
@@ -18,6 +19,7 @@ public enum OrderStatus  {
 
 public type Order record {|
     string orderId;
+    string itemID;
     string customerId;
     string restaurantId;
     OrderItem[] items;

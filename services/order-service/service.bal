@@ -1,5 +1,13 @@
 import ballerina/http;
 
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["http://127.0.0.1:5500", "http://localhost:5500"],
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type"]
+    }
+}
+
 service /orders on new http:Listener(9091) {
     
     resource function post .(@http:Payload Order orderr) returns http:Created|http:Conflict|error {

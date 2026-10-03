@@ -38,6 +38,14 @@ function ValidInventory(itemInventory inventory) returns boolean{
 
 }
 
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["http://127.0.0.1:5500", "http://localhost:5500"],
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type"]
+    }
+}
+
 service /restaurant on resturantListener{
 
     //RESTAURANT ENDPOINT START

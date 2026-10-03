@@ -7,7 +7,18 @@ final map<DeliveryStatus> nextStatus = {
     "IN_TRANSIT": DELIVERED
 };
 
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["http://127.0.0.1:5500", "http://localhost:5500"],
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type"]
+    }
+}
+
 service /delivery on new http:Listener(8090) {
+    resource function get .() returns json {
+        return {"service": "delivery-service", "status": "active"};
+    }
 
     resource function get health() returns json {
         return {"service": "delivery-service", "status": "running"};
