@@ -65,7 +65,6 @@ service /restaurant on resturantListener{
                 restaurantList.push(restaurant);
             };
         } on fail error err {
-    error? closeError = result.close();
     return err;
 }
 
@@ -232,7 +231,6 @@ service /restaurant on resturantListener{
                 restaurantMenu.push(item);
             };
        } on fail error err {
-    error? closeError = result.close();
     return err;
 }
 
@@ -266,7 +264,6 @@ service /restaurant on resturantListener{
                 restaurantInventory.push(inventoryItem);
             };
        } on fail error err {
-    error? closeError = result.close();
     return err;
 }
         check result.close();
