@@ -3,3 +3,8 @@ org = "dsa612s"
 name = "payment_service"
 version = "0.1.0"
 distribution = "2201.13.5"
+
+[[dependency]]
+org = "ballerinax"
+name = "mongodb"
+version = "5.0.0"

@@ -1,0 +1,6 @@
+mongoHost = "localhost"
+mongoPort = 27017
+mongoUser = "admin"
+mongoPassword = "admin123"
+mongoDatabase = "admin"
+kafkaUrl = "localhost:9092"
