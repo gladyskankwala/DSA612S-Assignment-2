@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="app">
+        <!-- Sidebar Navigation System -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">F</div>
+                <div>
+                    <h2>Food Delivery</h2>
+                    <span>Ecosystem Hub</span>
+                </div>
+            </div>
+            <div class="navigation">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="restaurants.html" class="nav-link">Restaurants</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="payments.html" class="nav-link active">Payments</a>
+                <a href="deliveries.html" class="nav-link">Deliveries</a>
+                <a href="notifications.html" class="nav-link">Notifications</a>
+                <a href="customers.html" class="nav-link">Customers</a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="system-status">
+                    <span id="connection-status-dot" class="status-dot"></span>
+                    System Live
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Area -->
+        <div class="main">
+            <!-- Universal Topbar -->
+            <div class="topbar">
+                <div>
+                    <div class="page-label">FINANCIAL AUDIT MODALITY</div>
+                    <h1>Settlement Ledger Matrix</h1>
+                </div>
+            </div>
+
+            
+            <div class="content">
+                <div class="welcome">
+                    <div>
+                        <h2>Transaction Audit Lookup Terminal</h2>
+                        <p>Verify Kafka asynchronous settlement outputs, track invoice states, and run specific audits on Port :8084.</p>
+                    </div>
+                </div>
+
+                
+                <div class="alert-zone" id="audit-exception-zone" style="display: none; background-color: #ffb8b8; color: #900; padding: 15px; border-radius: 6px; font-size: 13px; font-weight: 500; margin-bottom: 20px;"></div>
+
+                <div class="split-view">
+                    <div class="panel-left">
+                        <div class="section-header" style="margin-top:0;"><h2>Global Settlement Queue Archive</h2></div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Payment ID Tracking Code</th>
+                                    <th>Associated Order ID</th>
+                                    <th>Settled Gross Value</th>
+                                    <th style="text-align: right;">Gateway Status Badge</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align:center; color:var(--muted);">Use the terminal query system on the right to pull direct operational elements into focus logs.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
+                    <div class="panel-right">
+                        <div class="section-header" style="margin-top:0;"><h3 style="font-size:16px;">Trace Target Order ID</h3></div>
+                        <form id="payment-search-form" style="margin-top:15px;">
+                            <div class="form-group">
+                                <label for="search-order-id">Explicit Order Identifier String</label>
+                                <input type="text" id="search-order-id" required placeholder="e.g. ORD-99321">
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Query Ledger Registry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/payments.js"></script>
+</body>
+</html>

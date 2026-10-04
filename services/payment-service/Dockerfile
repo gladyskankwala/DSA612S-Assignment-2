@@ -1,14 +1,9 @@
-# Build stage
-FROM ballerina/ballerina:2201.10.0 AS build
-WORKDIR /app
-COPY . .
-RUN bal build --offline || bal build
+FROM ballerina/ballerina:2201.13.4
 
-# Run stage
-FROM ballerina/jre21:latest
 WORKDIR /app
-COPY --from=build /app/target/bin/*.jar /app/payment-service.jar
+
+COPY target/bin/payment_service.jar .
 
 EXPOSE 8084
 
-CMD ["java", "-jar", "payment-service.jar"]
+CMD ["bal", "run", "payment_service.jar"]

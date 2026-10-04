@@ -9,25 +9,17 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
-
       KAFKA_LISTENERS: PLAINTEXT://:29092,CONTROLLER://:29093,EXTERNAL://:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
-
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:29092 --list > /dev/null 2>&1"
-        ]
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:29092 --list > /dev/null 2>&1"]
       interval: 5s
       timeout: 5s
       retries: 12
@@ -44,39 +36,97 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  customer-service:
+    build:
+      context: ./services/customer-service
+      dockerfile: Dockerfile
+    container_name: dsa612s-customer-service
+    ports:
+      - "8086:8086"
+    environment:
+      BAL_CONFIG_DATA: |
+        mongoUrl="mongodb://admin:admin123@dsa612s-mongodb:27017/?authSource=admin"
+    depends_on:
+      mongodb:
+        condition: service_started
+
+  restaurant-service:
+    build:
+      context: ./services/restaurant-service
+      dockerfile: Dockerfile
+    container_name: dsa612s-restaurant-service
+    ports:
+      - "8083:8083"
+    environment:
+      BAL_CONFIG_VAR_DB_HOST: "dsa612s-mongodb"
+      BAL_CONFIG_VAR_DB_PORT: "27017"
+      BAL_CONFIG_VAR_DB_NAME: "restaurant_service"
+    depends_on:
+      mongodb:
+        condition: service_started
+
   order-service:
-    build: ./services/order-service
+    build:
+      context: ./services/order-service
+      dockerfile: Dockerfile
     container_name: dsa612s-order-service
     ports:
       - "9091:9091"
+    environment:
+      BAL_CONFIG_DATA: |
+        kafkaUrl="kafka:29092"
+        mongoHost="dsa612s-mongodb"
+        mongoPort=27017
+        mongoDatabase="food_delivery"
     depends_on:
       kafka:
         condition: service_healthy
 
-  # Jeovane's Section
+
+  payment-service:
+    build: ./services/payment-service
+    container_name: dsa612s-payment-service
+    ports:
+     - "8084:8084"
+    environment:
+      BAL_CONFIG_DATA: |
+        kafkaBootstrapServers="kafka:29092"
+    depends_on:
+      kafka-init:
+       condition: service_completed_successfully
+
   notification-service:
     build: ./services/notification-service
     container_name: dsa612s-notification-service
-    ports: 
-    -  "8087:8087"
-    depends_on:
-      kafka:
-        condition: service_healthy
-
-
-  admin-service:
-    build: ./services/admin-service
-    container_name: dsa612s-admin-service
     ports:
-    - "8088:8088"
+    - "8087:8087"
+    environment:
+      BAL_CONFIG_DATA: |
+        kafkaUrl="kafka:29092"
+        mongoUrl="mongodb://admin:admin123@dsa612s-mongodb:27017/?authSource=admin"
     depends_on:
       kafka:
         condition: service_healthy
       mongodb:
         condition: service_started
 
-  # Romo's Section
-  # creates all topics with 3 partitions (instead of auto-creating them with 1)
+  admin-service:
+    build:
+      context: ./services/admin-service
+      dockerfile: Dockerfile
+    container_name: dsa612s-admin-service
+    ports:
+      - "8088:8088"
+    environment:
+      BAL_CONFIG_DATA: |
+        kafkaUrl="kafka:29092"
+        mongoUrl="mongodb://admin:admin123@dsa612s-mongodb:27017/?authSource=admin"
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+
   kafka-init:
     image: apache/kafka:4.0.0
     container_name: dsa612s-kafka-init
@@ -99,15 +149,12 @@ services:
       - "8085:8085"
     environment:
       BAL_CONFIG_VAR_KAFKAURL: kafka:29092
-      BAL_CONFIG_VAR_MONGOURL: mongodb://admin:admin123@mongodb:27017/?authSource=admin
+      BAL_CONFIG_VAR_MONGOURL: mongodb://admin:admin123@dsa612s-mongodb:27017/?authSource=admin
     depends_on:
       kafka-init:
         condition: service_completed_successfully
       mongodb:
         condition: service_started
-
-###### ENDS
-
 
 volumes:
   mongodb_data:

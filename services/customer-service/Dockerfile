@@ -1,12 +1,6 @@
 FROM ballerina/ballerina:2201.13.4
-
-
 WORKDIR /app
-
 COPY target/bin/customer_service.jar .
-COPY Config.toml . 
-
+COPY config.toml .
 EXPOSE 8086
-
-
-CMD ["bal","run", "customer_service.jar"]
+CMD ["java", "-jar", "customer_service.jar"]

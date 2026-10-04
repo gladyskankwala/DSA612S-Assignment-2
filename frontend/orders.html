@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="app">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">F</div>
+                <div>
+                    <h2>Food Delivery</h2>
+                    <span>Ecosystem Hub</span>
+                </div>
+            </div>
+            <div class="navigation">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="restaurants.html" class="nav-link">Restaurants</a>
+                <a href="orders.html" class="nav-link active">Orders</a>
+                <a href="payments.html" class="nav-link">Payments</a>
+                <a href="deliveries.html" class="nav-link">Deliveries</a>
+                <a href="notifications.html" class="nav-link">Notifications</a>
+                <a href="customers.html" class="nav-link">Customers</a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="system-status">
+                    <span id="connection-status-dot" class="status-dot"></span>
+                    System Live
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Area -->
+        <div class="main">
+            <!-- Universal Topbar -->
+            <div class="topbar">
+                <div>
+                    <div class="page-label">SALES & LIFE-CYCLES</div>
+                    <h1>Order Tracking Portal</h1>
+                </div>
+            </div>
+
+            <!-- Page Dashboard Content -->
+            <div class="content">
+                <div class="welcome">
+                    <div>
+                        <h2>Live Processing Ledger</h2>
+                        <p>Monitor customer checkout sequences and patch state values to Port :9091.</p>
+                    </div>
+                </div>
+
+                <div class="split-view">
+                    <!-- Left Column: Data Grid Table -->
+                    <div class="panel-left">
+                        <div class="section-header" style="margin-top:0;"><h2>Active Ecosystem Orders</h2></div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer Ref</th>
+                                    <th>Vendor ID</th>
+                                    <th>Total Settlement</th>
+                                    <th>Pipeline State</th>
+                                    <th style="text-align: right;">Administrative Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-table-body">
+                                <!-- Populated dynamically via js/orders.js -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Right Column: Permanent Side Input Panel Form Layout -->
+                    <div class="panel-right">
+                        <div class="section-header" style="margin-top:0;"><h3 style="font-size:16px;">Create Order Instance</h3></div>
+                        <form id="order-form" style="margin-top:15px;">
+                            <div class="form-group">
+                                <label for="orderId">Order Tracking ID</label>
+                                <input type="text" id="orderId" required placeholder="e.g. ORD-99321">
+                            </div>
+                            <div class="form-group">
+                                <label for="customerId">Associated Customer ID</label>
+                                <input type="text" id="customerId" required placeholder="e.g. CUST-551">
+                            </div>
+                            <div class="form-group">
+                                <label for="restaurantId">Target Merchant ID</label>
+                                <input type="text" id="restaurantId" required placeholder="e.g. REST-102">
+                            </div>
+                            <div class="form-group">
+                                <label for="itemId">Target Menu Item ID</label>
+                                <input type="text" id="itemId" required placeholder="e.g. 101">
+                            </div>
+                            <div class="form-group">
+                                <label for="totalAmount">Invoice Gross Total ($)</label>
+                                <input type="number" step="0.01" id="totalAmount" required placeholder="0.00">
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Commit Order Instance</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/orders.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 import ballerina/http;
 import ballerinax/mongodb;
+
 listener http:Listener resturantListener = new (8083);
 
 //    ---------CHECKING FUNCTIONS-------------
@@ -10,9 +11,7 @@ function getRestaurant(int restaurantID) returns Restaurant|error? {
 }
 
 function ValidRestaurant(Restaurant restaurant) returns boolean {
-
     return
-
     restaurant.name.trim() != "" &&
     restaurant.address.trim() != "" &&
     restaurant.openingTime.trim() != "" &&
@@ -25,7 +24,6 @@ function ValidMenuItem(menuItem item ) returns boolean{
     item.name.trim() != "" &&
     item.price > 0d  &&
     item.description.trim() != "";
-
 }
 
 function ValidInventory(itemInventory inventory) returns boolean{
@@ -35,7 +33,6 @@ function ValidInventory(itemInventory inventory) returns boolean{
     inventory.name.trim() != "" &&
     inventory.quantity >= 0 &&
     inventory.restaurantID > 0;
-
 }
 
 @http:ServiceConfig {
@@ -46,14 +43,12 @@ function ValidInventory(itemInventory inventory) returns boolean{
     }
 }
 
-service /restaurant on resturantListener{
+service /restaurant on resturantListener {
 
     //RESTAURANT ENDPOINT START
 
     //----------GET RESTAURANT-----
-
     resource function get .() returns Restaurant[]|error {
-
         stream<Restaurant, error?> result = check restaurantsCollection->find(
         {}, targetType = Restaurant);
 
@@ -65,11 +60,10 @@ service /restaurant on resturantListener{
                 restaurantList.push(restaurant);
             };
         } on fail error err {
-    return err;
-}
+            return err;
+        }
 
         check result.close();
-
         return restaurantList;
     }
 
@@ -87,7 +81,6 @@ service /restaurant on resturantListener{
     }
 
     //----------POST ENDPOINT-------------
-
     resource function post .(@http:Payload Restaurant restaurant)
         returns Restaurant|http:BadRequest|error {
 
@@ -96,7 +89,6 @@ service /restaurant on resturantListener{
         }
 
         check restaurantsCollection->insertOne(restaurant);
-
         return restaurant;
     }
 
@@ -123,10 +115,10 @@ service /restaurant on resturantListener{
         }
 
         restaurant.restaurantID = restaurantID;
-
         return restaurant;
     }
 
+    //-----------DELETE RESTAURANT----------------
     resource function delete [int restaurantID]()
         returns http:NotFound|http:Ok|error {
 
@@ -138,9 +130,8 @@ service /restaurant on resturantListener{
         }
 
         return http:OK;
-    }
-    // --------RESTAURANT ENDPOINTS END----------------
-
+    } 
+    
     // --------MENU ENDPOINTS START------------------
 
     //       ---------PUT MENU-------------
@@ -196,7 +187,6 @@ service /restaurant on resturantListener{
     }
 
     // ------DELETE MENU--------
-
     resource function delete [int restaurantID]/menuItem/[int itemID]()
         returns http:NotFound|http:Ok|error {
 
@@ -211,7 +201,6 @@ service /restaurant on resturantListener{
     }
 
     //  ---------GET MENU-----------
-
     resource function get [int restaurantID]/menuItem()
         returns menuItem[]|http:NotFound|error {
 
@@ -231,15 +220,12 @@ service /restaurant on resturantListener{
                 restaurantMenu.push(item);
             };
        } on fail error err {
-    return err;
-}
+            return err;
+       }
 
         check result.close();
-
         return restaurantMenu;
     }
-
-    //     ---------- MENU END ------------
 
     // -------------INVENTORY START------------
 
@@ -264,15 +250,14 @@ service /restaurant on resturantListener{
                 restaurantInventory.push(inventoryItem);
             };
        } on fail error err {
-    return err;
-}
+            return err;
+       }
+       
         check result.close();
-
         return restaurantInventory;
     }
 
     // -------------GET SPECIFIC INVENTORY--------------
-
     resource function get [int restaurantID]/inventory/[int itemID]()
         returns itemInventory|http:NotFound|error {
 
@@ -301,59 +286,22 @@ service /restaurant on resturantListener{
     }
 
     // ---------POST INVENTORY-------------
-
-    resource function post [int restaurantID]/inventory/[int itemID](
-    @http:Payload itemInventory inventory)
-        returns itemInventory|http:NotFound|http:BadRequest|error {
+    resource function post [int restaurantID]/inventory/[int itemID](@http:Payload itemInventory inventory)
+        returns itemInventory|http:BadRequest|http:NotFound|error {
 
         Restaurant? restaurant = check getRestaurant(restaurantID);
-
         if restaurant is () {
             return http:NOT_FOUND;
         }
 
-        inventory.itemID = itemID;
         inventory.restaurantID = restaurantID;
+        inventory.itemID = itemID;
 
         if !ValidInventory(inventory) {
             return http:BAD_REQUEST;
         }
 
         check inventoryCollection->insertOne(inventory);
-
         return inventory;
     }
-
-    // -------PUT INVENTORY---------
-    resource function put [int restaurantID]/inventory/[int itemID](
-    @http:Payload itemInventory inventory)
-        returns itemInventory|http:NotFound|http:BadRequest|error {
-
-        Restaurant? restaurant = check getRestaurant(restaurantID);
-
-        if restaurant is () {
-            return http:NOT_FOUND;
-        }
-        inventory.itemID = itemID;
-        inventory.restaurantID = restaurantID;
-
-        if !ValidInventory(inventory) {
-            return http:BAD_REQUEST;
-        }
-
-        mongodb:UpdateResult result = check inventoryCollection->updateOne(
-        {restaurantID: restaurantID, itemID: itemID},
-        {set: {
-                inventoryID: inventory.inventoryID,
-                name: inventory.name,
-                quantity: inventory.quantity
-        }});
-
-        if result.matchedCount == 0 {
-            return http:NOT_FOUND;
-        }
-
-        return inventory;
-    }
-
-}
+} 

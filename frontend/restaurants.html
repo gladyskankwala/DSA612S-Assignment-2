@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app">
+
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">F</div>
+            <div>
+                <h2>Food Delivery</h2>
+                <span>Ecosystem Hub</span>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="restaurants.html" class="nav-link active">Restaurants</a>
+            <a href="orders.html" class="nav-link">Orders</a>
+            <a href="payments.html" class="nav-link">Payments</a>
+            <a href="deliveries.html" class="nav-link">Deliveries</a>
+            <a href="notifications.html" class="nav-link">Notifications</a>
+            <a href="customers.html" class="nav-link">Customers</a>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                System Live
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+            <div>
+                <div class="page-label">RESTAURANT MANAGEMENT</div>
+                <h1>Restaurants & Catalog</h1>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="welcome">
+                <div>
+                    <h2>Restaurant Management</h2>
+                    <p>Manage restaurants, menu items and inventory through Port 8083.</p>
+                </div>
+            </div>
+
+            <div class="tab-navigation">
+                <button class="tab-btn active-tab" onclick="switchView('restaurants', this)">
+                    Restaurants
+                </button>
+                <button class="tab-btn" onclick="switchView('menu', this)">
+                    Menu
+                </button>
+                <button class="tab-btn" onclick="switchView('inventory', this)">
+                    Inventory
+                </button>
+            </div>
+
+            <!-- RESTAURANTS -->
+            <div id="tab-restaurants" class="tab-content show">
+                <div class="split-view">
+
+                    <div class="panel-left">
+                        <div class="section-header">
+                            <h2>Registered Restaurants</h2>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Hours</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="restaurant-table-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel-right">
+                        <h3>Add Restaurant</h3>
+
+                        <form id="restaurant-form">
+
+                            <div class="form-group">
+                                <label>Restaurant ID</label>
+                                <input type="number" id="restId" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="restName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" id="restAddress" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Opening Time</label>
+                                <input type="text" id="restOpen" placeholder="08:00" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Closing Time</label>
+                                <input type="text" id="restClose" placeholder="22:00" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="restIsOpen">
+                                    <option value="true">Open</option>
+                                    <option value="false">Closed</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn" style="width:100%;">
+                                Add Restaurant
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- MENU -->
+            <div id="tab-menu" class="tab-content">
+
+                <div class="context-selector">
+                    <label>Restaurant:</label>
+                    <select id="menuTargetSelect" onchange="loadMenuItems(this.value)">
+                        <option value="">-- Choose Restaurant --</option>
+                    </select>
+                </div>
+
+                <div class="split-view">
+
+                    <div class="panel-left">
+                        <div class="section-header">
+                            <h2>Menu Items</h2>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Available</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menu-table-body">
+                                <tr>
+                                    <td colspan="6">Choose a restaurant.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel-right">
+                        <h3>Add Menu Item</h3>
+
+                        <form id="menu-form">
+
+                            <div class="form-group">
+                                <label>Item ID</label>
+                                <input type="number" id="menuItemId" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="menuItemName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" step="0.01" id="menuItemPrice" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea id="menuItemDesc" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Availability</label>
+                                <select id="menuItemAvail">
+                                    <option value="true">Available</option>
+                                    <option value="false">Unavailable</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn" style="width:100%;">
+                                Add Menu Item
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- INVENTORY -->
+            <div id="tab-inventory" class="tab-content">
+
+                <div class="context-selector">
+                    <label>Restaurant:</label>
+                    <select id="invTargetSelect" onchange="loadInventoryItems(this.value)">
+                        <option value="">-- Choose Restaurant --</option>
+                    </select>
+                </div>
+
+                <div class="split-view">
+
+                    <div class="panel-left">
+                        <div class="section-header">
+                            <h2>Inventory</h2>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Inventory ID</th>
+                                    <th>Item ID</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table-body">
+                                <tr>
+                                    <td colspan="5">Choose a restaurant.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel-right">
+                        <h3>Inventory Management</h3>
+                        <p>
+                            View and manage restaurant inventory records
+                            stored by the Restaurant Service.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/restaurants.js"></script>
+</body>
+</html>

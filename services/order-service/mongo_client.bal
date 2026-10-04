@@ -4,11 +4,8 @@ configurable string mongoHost = ?;
 configurable int mongoPort = ?;
 configurable string mongoDatabase = ?;
 
+
 final mongodb:Client mongoClient = check new ({
-    connection: {
-        serverAddress: {
-            host: mongoHost,
-            port: mongoPort
-        }
-    }
+    connection: string `mongodb://admin:admin123@${mongoHost}:${mongoPort}/?authSource=admin`
 });
+

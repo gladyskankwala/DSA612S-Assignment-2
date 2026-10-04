@@ -15,7 +15,7 @@ final map<DeliveryStatus> nextStatus = {
     }
 }
 
-service /delivery on new http:Listener(8090) {
+service /delivery on new http:Listener(8085) {
     resource function get .() returns json {
         return {"service": "delivery-service", "status": "active"};
     }

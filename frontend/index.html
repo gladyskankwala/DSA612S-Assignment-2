@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="app">
+        <!-- Sidebar Navigation System -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">F</div>
+                <div>
+                    <h2>Food Delivery</h2>
+                    <span>Ecosystem Hub</span>
+                </div>
+            </div>
+            <div class="navigation">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="restaurants.html" class="nav-link">Restaurants</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="payments.html" class="nav-link">Payments</a>
+                <a href="deliveries.html" class="nav-link">Deliveries</a>
+                <a href="notifications.html" class="nav-link">Notifications</a>
+                <a href="customers.html" class="nav-link active">Customers</a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="system-status">
+                    <span id="connection-status" class="status-dot"></span>
+                    System Live
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Area -->
+        <div class="main">
+            <!-- Universal Topbar -->
+            <div class="topbar">
+                <div>
+                    <div class="page-label">MANAGEMENT CONSOLE</div>
+                    <h1>Ecosystem Metrics</h1>
+                </div>
+            </div>
+
+            <!-- Page Dashboard Content -->
+            <div class="content">
+                <div class="welcome">
+                    <div>
+                        <h2>System Statistics Overview</h2>
+                        <p>Real-time telemetry streams from your core Ballerina microservices cluster.</p>
+                    </div>
+                    <button class="refresh-btn" onclick="fetchLiveStatistics()">Refresh Metrics</button>
+                </div>
+
+                <div class="section-header">
+                    <h2>Order Lifecycle Counters</h2>
+                </div>
+                <!-- Section 1: Order Cards Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>TOTAL TRANSACTIONS</span>
+                        </div>
+                        <h3 id="totalOrders">0</h3>
+                        <p>All-time generated entries</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>CONFIRMED METRICS</span>
+                        </div>
+                        <h3 id="confirmedOrders">0</h3>
+                        <p>Awaiting dispatch queue</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>PREPARING KITCHEN</span>
+                        </div>
+                        <h3 id="preparingOrders">0</h3>
+                        <p>Active culinary operations</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>ORDERS READY</span>
+                        </div>
+                        <h3 id="readyOrders">0</h3>
+                        <p>Waiting for driver pickup</p>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-top: 40px;">
+                    <h2>Settlement & Fulfillment Pipeline</h2>
+                </div>
+                <!-- Section 2: Logistics Cards Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>COMPLETED PAYMENTS</span>
+                        </div>
+                        <h3 id="completedPayments">0</h3>
+                        <p>Cleared transaction ledgers</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>FAILED SETTLEMENTS</span>
+                        </div>
+                        <h3 id="failedPayments">0</h3>
+                        <p>Declined checkout records</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>ASSIGNED COURIERS</span>
+                        </div>
+                        <h3 id="assignedDeliveries">0</h3>
+                        <p>Active transit assignments</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>COMPLETED DELIVERIES</span>
+                        </div>
+                        <h3 id="completedDeliveries">0</h3>
+                        <p>Successfully delivered logs</p>
+                    </div>
+                </div>
+
+                <!-- Added Cancelled Card in a clean individual block context -->
+                <div class="section-header" style="margin-top: 30px;">
+                    <h2>Exceptions Tracker</h2>
+                </div>
+                <div class="stats-grid" style="grid-template-columns: repeat(1, 1fr); max-width: 250px;">
+                    <div class="stat-card" style="border-left: 4px solid var(--red);">
+                        <div class="stat-header">
+                            <span>CANCELLED ORDERS</span>
+                        </div>
+                        <h3 id="cancelledOrders">0</h3>
+                        <p>Dropped basket instances</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

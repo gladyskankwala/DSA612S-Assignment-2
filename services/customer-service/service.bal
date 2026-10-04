@@ -1,6 +1,17 @@
 import ballerina/http;
 
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["http://localhost:5500", "http://127.0.0.1:5500"],
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type", "Authorization"]
+    }
+}
+
 service /customers on new http:Listener(8086) {
+
+    
+    
 
     resource function post .(Customer customer) returns json|error {
 

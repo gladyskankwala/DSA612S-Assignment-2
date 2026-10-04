@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.13.6"
+distribution-version = "2201.13.4"
 
 [[package]]
 org = "ballerina"
@@ -33,7 +33,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "constraint"
-version = "1.7.0"
+version = "1.7.1"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -103,10 +103,13 @@ modules = [
 [[package]]
 org = "ballerina"
 name = "io"
-version = "1.8.1"
+version = "1.8.2"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
+]
+modules = [
+	{org = "ballerina", packageName = "io", moduleName = "io"}
 ]
 
 [[package]]
@@ -206,7 +209,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "log"
-version = "2.17.0"
+version = "2.17.1"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
@@ -217,7 +220,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "mime"
-version = "2.12.2"
+version = "2.12.3"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
@@ -249,7 +252,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "os"
-version = "1.10.1"
+version = "1.10.2"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"}
@@ -258,7 +261,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "task"
-version = "2.11.2"
+version = "2.11.3"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "time"},
@@ -268,7 +271,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "time"
-version = "2.8.1"
+version = "2.8.2"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
@@ -284,7 +287,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "uuid"
-version = "1.10.0"
+version = "1.10.1"
 dependencies = [
 	{org = "ballerina", name = "crypto"},
 	{org = "ballerina", name = "jballerina.java"},
@@ -324,6 +327,7 @@ name = "customer_service"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
 	{org = "ballerinai", name = "observe"},
 	{org = "ballerinax", name = "mongodb"}
 ]

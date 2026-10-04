@@ -1,3 +1,4 @@
+
 public type OrderItem record {|
     string menuItemId;
     string itemID;
@@ -6,7 +7,7 @@ public type OrderItem record {|
     decimal price;
 |};
 
-public enum OrderStatus  {
+public enum OrderStatus {
     CREATED,
     CONFIRMED,
     PREPARING,
@@ -14,8 +15,7 @@ public enum OrderStatus  {
     OUT_FOR_DELIVERY,
     DELIVERED,
     CANCELLED
-};
-
+}
 
 public type Order record {|
     string orderId;
@@ -25,4 +25,25 @@ public type Order record {|
     OrderItem[] items;
     decimal totalAmount;
     OrderStatus status;
+|};
+
+public type AdminStatistics record {|
+    int totalOrders;
+    int completedPayments;
+    int failedPayment;
+|};
+
+public type OrderReport record {|
+    int activeOrdersCount;
+    decimal totalRevenue;
+|};
+
+public type DeliveryReport record {|
+    int activeDispatchesCount;
+    int completedDispatchesCount;
+|};
+
+public type AdminStats record {|
+    int activeUsersCount;
+    int activeVendorsCount;
 |};

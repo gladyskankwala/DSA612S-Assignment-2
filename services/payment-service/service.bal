@@ -1,5 +1,8 @@
 import ballerina/http;
 
+
+
+
 service on orderListener {
 
     remote function onConsumerRecord(Order[] orders) returns error? {
@@ -9,6 +12,15 @@ service on orderListener {
         }
     }
 }
+
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["*"],
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["*"]
+    }
+}
+
 
 service /payments on new http:Listener(8084) {
 

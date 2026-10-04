@@ -101,7 +101,7 @@ Test-Service `
 
 Test-Service `
     -Name "Admin Service" `
-    -Url "http://localhost:8085/admin/stats"
+    -Url "http://localhost:8088/admin/stats"
 
 
 # --------------------------------------------------
@@ -110,7 +110,7 @@ Test-Service `
 
 Test-Service `
     -Name "Delivery Service" `
-    -Url "http://localhost:8090/delivery/health"
+    -Url "http://localhost:8085/delivery/health"
 
 # --------------------------------------------------
 # Notification Service
@@ -120,12 +120,21 @@ Test-Service `
     -Name "Notification Service" `
     -Url "http://localhost:8087/notification/health"
 
-# Restaurent Service
+# Restaurant Service
 # --------------------------------------------------
 
 Test-Service `
     -Name "Restaurent Service" `
     -Url "http://localhost:8083/restaurant"
+
+
+# --------------------------------------------------
+# Customer Service
+# --------------------------------------------------
+
+Test-Service `
+    -Name "Customer Service" `
+    -Url "http://localhost:8086/customers"
 
 Write-Host ""
 Write-Host "======================================"

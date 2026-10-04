@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="app">
+        <div class="sidebar">
+            <div class="logo">
+            <div class="logo-icon">F</div>
+            <div>
+                <h2>Food Delivery</h2>
+                <span>Ecosystem Hub</span>
+            </div>
+        </div>
+            <div class="navigation">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="restaurants.html" class="nav-link">Restaurants</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="payments.html" class="nav-link">Payments</a>
+                <a href="deliveries.html" class="nav-link">Deliveries</a>
+                <a href="notifications.html" class="nav-link">Notifications</a>
+                <a href="customers.html" class="nav-link active">Customers</a>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Live
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Area -->
+        <div class="main">
+            <!-- Universal Topbar -->
+            <div class="topbar">
+                <div>
+                    <div class="page-label">USER PROFILE ARCHIVE</div>
+                    <h1>Customer Directory Registry</h1>
+                </div>
+            </div>
+
+            <!-- Page Content Context Area -->
+            <div class="content">
+                <div class="welcome">
+                    <div>
+                        <h2>User Matrix Control</h2>
+                        <p>Create customer identities, monitor account structural metadata, and manage profiles connected on Port :8086.</p>
+                    </div>
+                </div>
+
+                <div class="split-view">
+                    <!-- Left Column Customer Profile Tables Grid View -->
+                    <div class="panel-left">
+                        <div class="section-header" style="margin-top:0;"><h2>Registered Consumer Records</h2></div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Full Profile Name</th>
+                                    <th>Email Destination</th>
+                                    <th>Active Contact phone</th>
+                                    <th style="text-align: right;">Administrative Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customer-table-body"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Right Column Insertion Block Panel Forms -->
+                    <div class="panel-right">
+                        <div class="section-header" style="margin-top:0;"><h3 style="font-size:16px;">Create Consumer Identity</h3></div>
+                        <form id="customer-form" style="margin-top:15px;">
+                            <div class="form-group">
+                                <label for="customerId">Explicit Customer ID</label>
+                                <input type="text" id="customerId" required placeholder="e.g. CUST-8022">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Consumer Full Name</label>
+                                <input type="text" id="name" required placeholder="e.g. John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Primary Email Address</label>
+                                <input type="email" id="email" required placeholder="e.g. john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone System String</label>
+                                <input type="text" id="phone" required placeholder="e.g. +26481234567">
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%;">Commit Identity Profile</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/customers.js"></script>
+</body>
+</html>
