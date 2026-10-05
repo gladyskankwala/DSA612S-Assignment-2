@@ -260,5 +260,55 @@ async function deleteInventory(restaurantID, itemID) {
     loadInventoryItems(restaurantID);
 }
 
+document.getElementById("inventory-form").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const restaurantID =
+        document.getElementById("invTargetSelect").value;
+
+    const itemID =
+        Number(document.getElementById("inventoryItemId").value);
+
+    if (!restaurantID) {
+        alert("Choose a restaurant first.");
+        return;
+    }
+
+    const data = {
+        inventoryID: Number(document.getElementById("inventoryId").value),
+        itemID: itemID,
+        name: document.getElementById("inventoryName").value.trim(),
+        quantity: Number(document.getElementById("inventoryQuantity").value),
+        restaurantID: Number(restaurantID)
+    };
+
+    try {
+        const res = await fetch(
+            `${API_URL}/${restaurantID}/inventory/${itemID}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(await res.text());
+        }
+
+        e.target.reset();
+
+        loadInventoryItems(restaurantID);
+
+        alert("Inventory added successfully.");
+
+    } catch (error) {
+        console.error(error);
+        alert("Failed to add inventory.");
+    }
+});
+
 window.addEventListener("DOMContentLoaded", loadRestaurants);
 

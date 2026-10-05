@@ -26,6 +26,10 @@ public function publishOrderStatusUpdated(Order updatedOrder) returns error? {
         statusTopic = "orders.preparing";
     } else if updatedOrder.status == READY {
         statusTopic = "orders.ready";
+    } else if updatedOrder.status == OUT_FOR_DELIVERY {
+        statusTopic = "orders.out_for_delivery";
+    } else if updatedOrder.status == DELIVERED {
+        statusTopic = "orders.delivered";
     } else if updatedOrder.status == CANCELLED {
         statusTopic = "orders.cancelled";
     }

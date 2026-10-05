@@ -1,6 +1,5 @@
 import ballerina/io;
 
-map<Payment> payments = {};
 int counter = 0;
 
 function processOrder(Order ord) returns Payment {
@@ -10,6 +9,7 @@ function processOrder(Order ord) returns Payment {
     string paymentId = "PAY-" + counter.toString();
 
     string status = "COMPLETED";
+
     if ord.totalAmount <= 0d || ord.totalAmount > 5000d {
         status = "FAILED";
     }
@@ -22,11 +22,9 @@ function processOrder(Order ord) returns Payment {
         status: status
     };
 
-    payments[ord.orderId] = payment;
-
     return payment;
 }
 
-function getPayment(string orderId) returns Payment? {
-    return payments[orderId];
+function getPayment(string orderId) returns Payment|error? {
+    return getPaymentFromDatabase(orderId);
 }
